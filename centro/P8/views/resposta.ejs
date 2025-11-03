@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Status do Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div>
+    <h1>Status do Login</h1>
+    <p><%= mensagem %></p>
+
+    <h2>Usuários cadastrados:</h2>
+    <% if (Array.isArray(usuarios) && usuarios.length > 0) { %>
+      <ul>
+        <% usuarios.forEach(u => { %>
+          <li><%= u.usuario %></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>Nenhum usuário cadastrado ainda.</p>
+    <% } %>
+
+    <p>
+      <a href="/cadastra">Voltar para Cadastro</a> |
+      <a href="/login">Login</a>
+    </p>
+  </div>
+</body>
+</html>
