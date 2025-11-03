@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Animação</title>
+
+  <style>
+    body {
+      background-color: #a5d4ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .pagina {
+      text-align: center;
+    }
+
+    canvas {
+      border: 2px solid #222;
+      display: block;
+      margin: 20px auto;
+      background: #ffffffaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pagina">
+    <h1>Animação</h1>
+    <p>A imagem persegue o cursor dentro do canvas!</p>
+
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const contexto = canvas.getContext('2d');
+
+    const larguraCanvas = canvas.width;
+    const alturaCanvas = canvas.height;
+
+    const imagem = new Image();
+    imagem.src = "img/oof.png";
+
+    const larguraImagem = 64;
+    const alturaImagem = 64;
+
+    let centroX = larguraCanvas / 2;
+    let centroY = alturaCanvas / 2;
+
+    let mouseEntrou = false;
+
+    function converterPosicaoMouse(telaX, telaY) {
+      const ret = canvas.getBoundingClientRect();
+      return {
+        x: telaX - ret.left,
+        y: telaY - ret.top
+      };
+    }
+
+    function manterDentroDoCanvas(x, y) {
+      return {
+        x: Math.max(larguraImagem / 2, Math.min(larguraCanvas - larguraImagem / 2, x)),
+        y: Math.max(alturaImagem / 2, Math.min(alturaCanvas - alturaImagem / 2, y))
+      };
+    }
+
+    canvas.addEventListener('mousemove', (event) => {
+      const pos = converterPosicaoMouse(event.clientX, event.clientY);
+      mouseEntrou = true;
+
+      const posAjustada = manterDentroDoCanvas(pos.x, pos.y);
+      centroX = posAjustada.x;
+      centroY = posAjustada.y;
+    });
+
+    canvas.addEventListener('mouseleave', (event) => {
+      const pos = converterPosicaoMouse(event.clientX, event.clientY);
+      const posAjustada = manterDentroDoCanvas(pos.x, pos.y);
+      centroX = posAjustada.x;
+      centroY = posAjustada.y;
+    });
+
+    function desenharCena() {
+      contexto.clearRect(0, 0, larguraCanvas, alturaCanvas);
+
+      const xDesenho = centroX - larguraImagem / 2;
+      const yDesenho = centroY - alturaImagem / 2;
+
+      if (imagem.complete) {
+        contexto.drawImage(imagem, xDesenho, yDesenho, larguraImagem, alturaImagem);
+      } else {
+        contexto.fillStyle = "#ccc";
+        contexto.fillRect(xDesenho, yDesenho, larguraImagem, alturaImagem);
+      }
+
+      requestAnimationFrame(desenharCena);
+    }
+
+    desenharCena();
+  </script>
+
+</body>
+</html>
+

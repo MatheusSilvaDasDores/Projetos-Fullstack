@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: #6deeff; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #verificar {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Jogo da adivinhação: Descubra o número entre 0 e 99!</h1>
+
+    <input type="number" id="entrada">
+    <button onclick="verificar()">Enviar</button>
+
+    <div id="verificar"></div>
+
+    <script>
+        let numCorreto = Math.floor(Math.random() * 100);
+
+        function verificar() {
+            let chute = document.getElementById("entrada").value;
+            chute = Number(chute);
+
+            if (chute > numCorreto) {
+                document.getElementById("verificar").innerHTML = "Muito alto!";
+                document.getElementById("entrada").style.setProperty("background-color", "red");
+            }
+            else if (chute < numCorreto) {
+                document.getElementById("verificar").innerHTML = "Muito baixo!";
+                document.getElementById("entrada").style.setProperty("background-color", "red");
+            }
+            else {
+                document.getElementById("verificar").innerHTML = "Parabéns! Você acertou!";
+                document.getElementById("entrada").style.setProperty("background-color", "lightgreen");
+            }
+        }
+    </script>
+
+</body>
+</html>
