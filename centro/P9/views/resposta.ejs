@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Status do Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div>
+    <h1>Página de posts</h1>
+    <p><%= mensagem %></p>
+
+    <h2>Posts enviados:</h2>
+    <% if (Array.isArray(posts) && posts.length > 0) { %>
+      
+       <% posts.forEach(post => { %>
+  <div style="border:2px solid #a0a0a0; border-radius:10px; padding:10px; margin:15px 0; margin-top: 10px;">
+    <h3 style="margin:0; font-size:20px;"><%= post.titulo %></h3>
+    <p style="margin:5px 0 0;"><%= post.resumo %></p>
+    <p style="margin:5px 0 0;"><%= post.conteudo %></p>
+  </div>
+<% }); %>    
+
+    <% } else { %>
+      <p>Nenhum post cadastrado ainda.</p>
+    <% } %>
+
+    <p>
+      <a href="/cadastra">Voltar para Cadastro</a> |
+    </p>
+  </div>
+</body>
+</html>
