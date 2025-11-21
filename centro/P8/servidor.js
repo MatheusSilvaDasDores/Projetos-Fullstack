@@ -1,3 +1,5 @@
+// instalar express : npm install express --save
+// iniciar servidor : node (servername)  ex: node servidor.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -55,3 +57,4 @@ app.get('/resposta', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
